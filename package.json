@@ -1,0 +1,20 @@
+{
+  "name": "bazaarmalam",
+  "version": "1.0.0",
+  "description": "This project is made to create an NFT digital marketplace online.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Howard Lee",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcrypt": "^5.0.1",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.12.13"
+  }
+}

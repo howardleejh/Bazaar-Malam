@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+
+<div class="container" style="height: 95vh; overflow-y: auto;">
+
+    <div class="row row-cols-1 row-cols-md-4 g-4 mt-3 pb-5">
+
+        <% nfts.forEach(item => { %>
+
+        <% if (item.name !== null) { %>
+
+        <% let nftCardParams = {
+                name: item.name, 
+                image: item.image_url, 
+                contractAdd: item.asset_contract.address, 
+                tokenId: item.token_id
+            } %>
+
+        <%- include('../partials/nft_card', nftCardParams) %>
+
+        <%  } %>
+
+        <% }) %>
+
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

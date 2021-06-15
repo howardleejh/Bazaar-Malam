@@ -1,0 +1,548 @@
+<div style="width: 95vw; height: 95vh; overflow-y: auto; color: black">
+    <div class="row row-cols-1 row-cols-md-3 g-3 mb-3">
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-header">
+                    PROFILE
+                </div>
+                <div class="row h-100 d-flex justify-content-center align-items-center">
+                    <div class="col-4">
+                        <img src="https://www.nicepng.com/png/full/202-2024580_png-file-profile-icon-vector-png.png"
+                            class="img-thumbnail p-2" alt="..." style="border: none;">
+                    </div>
+                    <div class="col-7">
+                        <div class="card-body">
+                            <h3 class="card-title"><%= `${first_name} ${last_name} ` %></h3>
+                            <h6 class="text-muted">Display: <strong
+                                    style="color: black; text-transform: capitalize;"><%= display_name %></strong></h6>
+                            <h6 class="text-muted">Email: <strong style="color: black"><%= email %></strong></h6>
+                            <% let date = new Date(timestamp).toDateString() 
+                               let localDate = date.slice(3)    
+                            %>
+                            <h6 class="text-muted">Member since: <strong
+                                    style="color: black; text-transform: uppercase;"><%= localDate %></strong></h6>
+                            <div class="mt-5">
+                                <button class="btn btn-primary" id="edit-profile">Edit Profile</button>
+                                <button class="btn btn-primary" id="add-funds">Top Up Funds</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-header">
+                    WALLET
+                </div>
+                <div class="card-body h-100">
+                    <div class="row h-100 d-flex justify-content-center align-items-center">
+                        <div class="col-7">
+                            <canvas id='transactions'></canvas>
+                        </div>
+                        <div class="col-5">
+                            <h6 class="text-muted">WORKING CAPITAL: </h6>
+                            <span class="badge rounded-pill bg-primary">USD</span>
+
+                            <%
+
+                             let totalVal = parseFloat(cash_balance) + parseFloat(bitcoin_balance * btcRate) + parseFloat(ethereum_balance * ethRate)
+                            
+                            %>
+
+                            <h4>$<%= twoDecimal(totalVal) %></h4>
+                            <h6 class="text-muted">CASH:</h6>
+                            <span class="badge rounded-pill bg-primary">USD</span>
+
+                            <h5>$<%= twoDecimal(cash_balance) %></h5>
+                            <h6 class="text-muted">BITCOIN:</h6>
+                            <h5><%= twoDecimal(bitcoin_balance) %></h5>
+                            <h6 class="text-muted">ETHEREUM:</h6>
+                            <h5><%= twoDecimal(ethereum_balance) %></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-header">
+                    CONVERSION RATES
+                </div>
+                <ul class="nav nav-pills nav-fill flex-sm-row nav-justified" id="dashboardTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="usd-tab" data-bs-toggle="tab" data-bs-target="#usd"
+                            type="button" role="tab" aria-controls="usd" aria-selected="true"><i
+                                class="fas fa-dollar-sign fs-5"></i></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="bitcoin-tab" data-bs-toggle="tab" data-bs-target="#bitcoin"
+                            type="button" role="tab" aria-controls="bitcoin" aria-selected="false"><i
+                                class="fab fa-bitcoin fs-5"></i></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="ethereum-tab" data-bs-toggle="tab" data-bs-target="#ethereum"
+                            type="button" role="tab" aria-controls="ethereum" aria-selected="false"><i
+                                class="fab fa-ethereum fs-5"></i></button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="dashboardTabContent">
+                    <div class="tab-pane fade show active" id="usd" role="tabpanel" aria-labelledby="usd-tab">
+                        <div class="container mx-auto p-1">
+                            <iframe
+                                src="https://widget.coinlib.io/widget?type=chart&theme=dark&coin_id=1526&pref_coin_id=1505"
+                                width="100%" height="325px%" scrolling="auto">
+                            </iframe>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="bitcoin" role="tabpanel" aria-labelledby="bitcoin-tab">
+                        <div class="container mx-auto p-1">
+                            <iframe
+                                src="https://widget.coinlib.io/widget?type=chart&theme=dark&coin_id=859&pref_coin_id=1505"
+                                width="100%" height="325px%" scrolling="auto">
+                            </iframe>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="ethereum" role="tabpanel" aria-labelledby="ethereum-tab">
+                        <div class="container mx-auto p-1">
+                            <iframe
+                                src="https://widget.coinlib.io/widget?type=chart&theme=dark&coin_id=145&pref_coin_id=1505"
+                                width="100%" height="325px%" scrolling="auto">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <row>
+        <div class="card mb-3">
+            <div class="card-header">
+                TRANSACTION HISTORY
+            </div>
+            <div style="height: 25vh; overflow-y: scroll;">
+                <table class="table table-dark table-striped table-hover">
+                    <thead class="sticky-top" style="background-color: black; color: wheat;">
+                        <tr>
+                            <th scope="col">DATE</th>
+                            <th scope="col">ITEM</th>
+                            <th scope="col">INITIAL VALUE</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">BUY/SELL</th>
+                            <th scope="col">MODE OF PAYMENT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>@mdo</td>
+                            <td>@mdo</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                            <td>@fat</td>
+                            <td>@fat</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                            <td>@twitter</td>
+                            <td>@twitter</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                            <td>@twitter</td>
+                            <td>@twitter</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                            <td>@twitter</td>
+                            <td>@twitter</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </row>
+
+    <div class="row row-cols-1 row-cols-md-2 g-3 pb-5">
+
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-header">
+                    TRANSACTION FREQUENCY
+                </div>
+                <div class="card-body">
+                    <div class="row h-100 d-flex justify-content-center align-items-center">
+                        <div class="col">
+                            <canvas class="" id='trade-freq'></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-header">
+                    <li class="d-flex justify-content-between align-items-center">
+                        TRANSACTIONS STATUS
+                        <span class="badge bg-primary rounded-pill">PENDING: 14</span>
+                    </li>
+                </div>
+                <ul class="nav nav-pills nav-fill flex-column flex-sm-row mb-3 nav-justified" id="dashboardTab"
+                    role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="bids-tab" data-bs-toggle="tab" data-bs-target="#bids"
+                            type="button" role="tab" aria-controls="bids" aria-selected="true">BIDS
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="purchase-tab" data-bs-toggle="tab" data-bs-target="#purchase"
+                            type="button" role="tab" aria-controls="purchase" aria-selected="false">TRADES
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profits-tab" data-bs-toggle="tab" data-bs-target="#profits"
+                            type="button" role="tab" aria-controls="profits" aria-selected="false">PROFITS</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="dashboardTabContent">
+                    <div class="tab-pane fade show active" id="bids" role="tabpanel" aria-labelledby="bids-tab">
+                        <div class="container mx-auto">
+                            <div class="row h-100 d-flex justify-content-center align-items-center">
+                                <div class="col-7 p-3">
+                                    <canvas id='bids-stats'></canvas>
+                                </div>
+                                <div class="col-5">
+                                    <h6 class="text-muted">TOTAL BIDS:</h6>
+                                    <h4>20</h4>
+                                    <h6 class="text-muted">WON:</h6>
+                                    <h5>4</h5>
+                                    <h6 class="text-muted">LOST:</h6>
+                                    <h5>10</h5>
+                                    <h6 class="text-muted">PENDING:</h6>
+                                    <h5>6</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="purchase" role="tabpanel" aria-labelledby="purchase-tab">
+                        <div class="container mx-auto">
+                            <div class="row h-100 d-flex justify-content-center align-items-center">
+                                <div class="col-7 p-3">
+                                    <canvas id='purchase-stats'></canvas>
+                                </div>
+                                <div class="col-5">
+                                    <h6 class="text-muted">PURCHASED ITEMS</h6>
+                                    <h4>121</h4>
+                                    <h6 class="text-muted">BOUGHT:</h6>
+                                    <h5>52</h5>
+                                    <h6 class="text-muted">SOLD:</h6>
+                                    <h5>23</h5>
+                                    <h6 class="text-muted">PENDING:</h6>
+                                    <h5>8</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profits" role="tabpanel" aria-labelledby="profits-tab">
+                        <div class="container mx-auto">
+                            <div class="row h-100 d-flex justify-content-center align-items-center">
+                                <div class="col-7 p-3">
+                                    <canvas id='profits-stats'></canvas>
+                                </div>
+                                <div class="col-5">
+                                    <h6 class="text-muted">PROFIT:</h6>
+                                    <h4>$20,000.00</h4>
+                                    <h6 class="text-muted">TOTAL REVENUE:</h6>
+                                    <h5>$52,201.00</h5>
+                                    <h6 class="text-muted">COST:</h6>
+                                    <h5>$32,201.00</h5>
+                                    <h6 class="text-muted">INITIAL INVESTMENT:</h6>
+                                    <h5>$1000.00</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Currency Pie Chart
+
+    let userData = [`<%= cash_balance %>`, `<%= (bitcoin_balance * btcRate) %>`, `<%= (ethereum_balance * ethRate) %>`]
+
+    let dataVal = []
+
+    userData.forEach(item => dataVal.push(parseFloat(item).toFixed(2)))
+
+
+    let ctx1 = document.getElementById('transactions').getContext('2d');
+    let chart1 = new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: ['US Dollar', 'Bitcoin', 'Ethereum'],
+            datasets: [{
+                data: dataVal,
+                backgroundColor: [
+                    'rgba(104, 158, 128, 0.7)',
+                    'rgba(234, 151, 61, 0.7)',
+                    'rgba(62, 65, 72, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(255, 255, 255, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false,
+                    position: 'right',
+                    labels: {
+                        font: 100,
+                        color: 'rgb(0,0,0)',
+                        padding: 5
+                    }
+                }
+            }
+        }
+    })
+
+    // Trade Frequency Line Chart
+
+    let ctx2 = document.getElementById('trade-freq').getContext('2d');
+    let chart2 = new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: ['jan', 'feb', 'mar', 'apr', 'may', 'jun'],
+            datasets: [{
+                    label: 'Transactions',
+                    data: [10, 20, 12],
+                    borderColor: 'red',
+                    backgroundColor: 'rgba(255,0,0, 0.2)',
+                    stack: 'combined',
+                    type: 'bar'
+                },
+                {
+                    label: 'Asset Value',
+                    data: [10, 12, 20],
+                    borderColor: 'blue',
+                    backgroundColor: 'blue',
+                    stack: 'combined',
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false,
+                    position: 'right',
+                    labels: {
+                        font: 100,
+                        color: 'rgb(0,0,0)',
+                        padding: 5
+                    }
+                }
+            }
+        }
+    })
+
+    // Bidding Doughnut Chart
+
+    let ctx3 = document.getElementById('bids-stats').getContext('2d');
+    let chart3 = new Chart(ctx3, {
+        type: 'doughnut',
+        data: {
+            labels: ['Bids Won', 'Bids Lost', 'Bids Pending'],
+            datasets: [{
+                data: [4, 10, 6],
+                backgroundColor: [
+                    'rgba(0, 0, 255, 0.7)',
+                    'rgba(255, 0, 0, 0.7)',
+                    'rgba(121, 255, 132, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(255, 255, 255, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false,
+                    position: 'right',
+                    labels: {
+                        font: 100,
+                        color: 'rgb(0,0,0)',
+                        padding: 5
+                    }
+                }
+            }
+        }
+    })
+
+    // Purchase Doughnut Chart
+
+    let ctx4 = document.getElementById('purchase-stats').getContext('2d');
+    let chart4 = new Chart(ctx4, {
+        type: 'doughnut',
+        data: {
+            labels: ['Items Bought', 'Items Sold', 'Items Pending'],
+            datasets: [{
+                data: [52, 23, 4],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(234, 151, 61, 0.7)',
+                ],
+                borderColor: [
+                    'rgba(255, 255, 255, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false,
+                    position: 'right',
+                    labels: {
+                        font: 100,
+                        color: 'rgb(0,0,0)',
+                        padding: 5
+                    }
+                }
+            }
+        }
+    })
+
+    // Profits Pie Chart
+
+    let ctx5 = document.getElementById('profits-stats').getContext('2d');
+    let chart5 = new Chart(ctx5, {
+        type: 'pie',
+        data: {
+            labels: ['Initial Investment', 'Revenue', 'Profits', 'Costs'],
+            datasets: [{
+                data: [1, 75, 32, 20],
+                backgroundColor: [
+                    'rgb(75, 192, 192)',
+                    'rgb(255, 205, 86)',
+                    'rgb(201, 203, 207)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 99, 132)'
+                ],
+                borderColor: [
+                    'rgba(255, 255, 255, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false,
+                    position: 'right',
+                    labels: {
+                        font: 100,
+                        color: 'rgb(0,0,0)',
+                        padding: 5
+                    }
+                }
+            }
+        }
+    })
+
+    // Accessing the Edit Profile tab on Bootstrap
+
+    const editProfile = document.querySelector('#edit-profile')
+    editProfile.onclick = () => {
+
+        const editTab = document.querySelector('#settings-tab')
+
+        const tab = new bootstrap.Tab(editTab)
+
+        tab.show()
+    }
+
+    // Accessing the Wallet tab on bootstrap
+
+    const addFunds = document.querySelector('#add-funds')
+    addFunds.onclick = () => {
+
+        const addFundTab = document.querySelector('#wallet-tab')
+
+        const tab = new bootstrap.Tab(addFundTab)
+
+        tab.show()
+    }
+</script>
+
+<% function twoDecimal(val) {
+
+    let valFloat = parseFloat(val)
+
+    return valFloat.toLocaleString('en-US', {maximumFractionDigits:2})
+
+}
+%>

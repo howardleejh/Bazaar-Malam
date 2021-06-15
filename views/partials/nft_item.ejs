@@ -1,0 +1,275 @@
+<div class="container mx-auto" style="height: 100vh; overflow-y: auto;">
+    <div class="row h-100 justify-content-center align-items-center">
+
+        <div class="card text-white py-5 px-5" style="background-color: rgba(0, 0, 0, 0.5);">
+            <div class="card-header">
+                <h3><%= name %> </h3>
+                <p class="text-muted"> ITEM #<%= itemId %></p>
+            </div>
+            <div class="row g-0">
+                <div class="col-md-6 text-center mb-3">
+                    <img src="<%= image %>" alt="item-image">
+                </div>
+                <div class="col-md-6 pb-3">
+                    <div class="card-body p-0 pb-5 mb-3">
+                        <p class="card-text text-capitalize">
+                            <strong class="text-muted text-uppercase">Contract Type:</strong> <%= contractType %></p>
+
+                        <% let date = convertDate(dateCreated) %>
+
+                        <p><strong class="text-muted text-uppercase">Date Created:</strong> <%= date %></p>
+                        <p><strong class="text-muted text-uppercase">Value:</strong> <strong>USD</strong>
+                            $<%= dollarPrice %></p>
+
+                        <% let results = ""
+                        if ( desc === "null") {
+
+                             results = `This item does not have any description.`
+
+                        } else {
+
+                         results = desc
+
+                        } %>
+
+                        <p class="lh-base mt-5" id="item-desc" style="text-align:justify"><%= results %></p>
+
+                        <div class="container mt-4 mb-2" id="item-purchase" style="display:none;">
+                            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="bid-tab" data-bs-toggle="tab"
+                                        data-bs-target="#bid" type="button" role="tab" aria-controls="bid"
+                                        aria-selected="true">Bid Item</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="purchase-tab" data-bs-toggle="tab"
+                                        data-bs-target="#purchase" type="button" role="tab" aria-controls="purchase"
+                                        aria-selected="false">Purchase Item</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="bid" role="tabpanel"
+                                    aria-labelledby="bid-tab">
+
+                                    <div class="row d-flex d-grid gap-3 justify-content-between mt-3">
+                                        <div class="col mt-3">
+                                            <h6 class="text-muted">Current Bid: <strong class="fs-6"
+                                                    style="color: rosybrown;"> USD
+                                                    $1000,00</strong>
+                                        </div>
+                                        <div class="col mt-3">
+                                            <h6 class="text-muted text-end">Total Bids: <strong class="fs-6"
+                                                    style="color: rosybrown;">14 Bids</strong></h6>
+                                        </div>
+                                        <small class="text-muted">Last updated 3 mins ago</small>
+
+                                        <div class="container">
+                                            <ul class="nav nav-pills mb-3" id="bid" role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active" id="bids-cash-tab"
+                                                        data-bs-toggle="pill" data-bs-target="#bids-cash" type="button"
+                                                        role="tab" aria-controls="bids-cash" aria-selected="true"><i
+                                                            class="fas fa-dollar-sign fs-5"></i></button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="bids-bitcoin-tab" data-bs-toggle="pill"
+                                                        data-bs-target="#bids-bitcoin" type="button" role="tab"
+                                                        aria-controls="bids-bitcoin" aria-selected="false"><i
+                                                            class="fab fa-bitcoin fs-5"></i></button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="bids-ethereum-tab"
+                                                        data-bs-toggle="pill" data-bs-target="#bids-ethereum"
+                                                        type="button" role="tab" aria-controls="bids-ethereum"
+                                                        aria-selected="false"><i
+                                                            class="fab fa-ethereum fs-5"></i></button>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content" id="bid-tabs-Content">
+                                                <div class="tab-pane fade show active" id="bids-cash" role="tabpanel"
+                                                    aria-labelledby="bids-cash-tab">
+                                                    <form>
+                                                        <div class="row align-items-center">
+                                                            <div class="input-group mb-3">
+                                                                <input type="number" step="0.01" min="0"
+                                                                    class="form-control" placeholder="USD $1000.00">
+                                                                <button class="btn btn-outline-light"
+                                                                    type="submit">Place Bid</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="tab-pane fade" id="bids-bitcoin" role="tabpanel"
+                                                    aria-labelledby="bids-bitcoin-tab">
+                                                    <form>
+                                                        <div class="row align-items-center">
+                                                            <div class="input-group mb-3">
+                                                                <input type="number" step="0.01" min="0"
+                                                                    class="form-control" placeholder="Bitcoin">
+                                                                <button class="btn btn-outline-light"
+                                                                    type="submit">Place Bid</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="tab-pane fade" id="bids-ethereum" role="tabpanel"
+                                                    aria-labelledby="bids-ethereum-tab">
+                                                    <form>
+                                                        <div class="row align-items-center">
+                                                            <div class="input-group mb-3">
+                                                                <input type="number" step="0.01" min="0"
+                                                                    class="form-control" placeholder="Ethereum">
+                                                                <button class="btn btn-outline-light"
+                                                                    type="submit">Place Bid</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="tab-pane fade mt-3" id="purchase" role="tabpanel"
+                                    aria-labelledby="purchase-tab">
+                                    <ul class="nav nav-pills mb-3" id="purchase-tabs" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="purchase-cash-tab" data-bs-toggle="pill"
+                                                data-bs-target="#purchase-cash" type="button" role="tab"
+                                                aria-controls="purchase-cash" aria-selected="true"><i
+                                                    class="fas fa-dollar-sign fs-5"></i></button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="purchase-bitcoin-tab" data-bs-toggle="pill"
+                                                data-bs-target="#purchase-bitcoin" type="button" role="tab"
+                                                aria-controls="purchase-bitcoin" aria-selected="false"><i
+                                                    class="fab fa-bitcoin fs-5"></i></button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="purchase-ethereum-tab" data-bs-toggle="pill"
+                                                data-bs-target="#purchase-ethereum" type="button" role="tab"
+                                                aria-controls="purchase-ethereum" aria-selected="false"><i
+                                                    class="fab fa-ethereum fs-5"></i></button>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="bid-tabs-Content">
+                                        <div class="tab-pane fade show active" id="purchase-cash" role="tabpanel"
+                                            aria-labelledby="purchase-cash-tab">
+                                            <form
+                                                action="/users/marketplace/show/<%= contractAdd %>/<%= tokenId %>/purchase"
+                                                method="POST">
+                                                <div class="row align-items-center">
+                                                    <div class="input-group mb-3">
+                                                        <input type="number" step="0.01" min="0" class="form-control"
+                                                            value="<%= dollarPrice %>" name="cashPurchase">
+                                                        <button class="btn btn-outline-light" type="submit">Purchase
+                                                            Item</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane fade" id="purchase-bitcoin" role="tabpanel"
+                                            aria-labelledby="purchase-bitcoin-tab">
+                                            <form
+                                                action="/users/marketplace/show/<%= contractAdd %>/<%= tokenId %>/purchase"
+                                                method="POST">
+                                                <div class="row align-items-center">
+                                                    <div class="input-group mb-3">
+                                                        <input type="number" step="0.01" min="0" class="form-control"
+                                                            placeholder="Bitcoin" name="bitcoinPurchase">
+                                                        <button class="btn btn-outline-light" type="submit">Purchase
+                                                            Item</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane fade" id="purchase-ethereum" role="tabpanel"
+                                            aria-labelledby="purchase-ethereum-tab">
+                                            <form
+                                                action="/users/marketplace/show/<%= contractAdd %>/<%= tokenId %>/purchase"
+                                                method="POST">
+                                                <div class="row align-items-center">
+                                                    <div class="input-group mb-3">
+                                                        <input type="number" step="0.01" min="0" class="form-control"
+                                                            placeholder="Ethereum" name="ethereumPurchase">
+                                                        <button class="btn btn-outline-light" type="submit">Purchase
+                                                            Item</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">Please be reminded that excess change will not be
+                                        refunded.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <% if (user) { %>
+
+                        <button type="button" class="btn btn-primary" id="purchase-btn">I'm Interested!</button>
+                        <a class="btn btn-outline-danger" href="/marketplace" role="button">Go Back</a>
+
+                        <% } else { %>
+
+                        <a class="btn btn-outline-danger" href="/marketplace" role="button">Go Back</a>
+
+                        <% } %>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    let itemDesc = document.querySelector('#item-desc')
+
+    let purchaseBtn = document.querySelector('#purchase-btn')
+
+    let itemPurchase = document.querySelector('#item-purchase')
+
+    purchaseBtn.addEventListener('click', () => {
+
+        let computedStyle = window.getComputedStyle(itemDesc).display
+
+        if (computedStyle === "block") {
+
+            itemDesc.style.display = "none"
+
+            itemPurchase.style.display = "block"
+
+            purchaseBtn.innerText = 'Show Description'
+
+        } else {
+
+            itemDesc.style.display = "block"
+
+            itemPurchase.style.display = "none"
+
+            purchaseBtn.innerText = `I'm Interested!`
+        }
+
+    })
+</script>
+
+<%  function convertDate(date) {
+
+let options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+}
+
+return new Date(date).toLocaleString('en-US', options)
+
+}
+
+%>

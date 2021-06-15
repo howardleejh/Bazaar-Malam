@@ -1,0 +1,18 @@
+<div class="col">
+    <div class="card h-100">
+        <div class="row row-cols-1">
+            <img src="<%= image %>" style="max-height: 35vh; object-fit: cover;">
+            <div class="card-img-overlay h-100" style="background-color: rgba(0, 0, 0, 0.5);">
+                <div class="d-flex row align-content-end h-100">
+                    <div>
+                        <h5 class="card-title col"><%= name %></h5>
+                    </div>
+                    <div>
+                        <a class="btn btn-primary btn-sm" href="/marketplace/show/<%= contractAdd %>/<%= tokenId %>"
+                            role="button">Go to Item</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="container" style="height: 95vh; overflow-y: auto;">
+
+    <div class="row row-cols-1 row-cols-md-4 g-4 mt-3 pb-5">
+
+        <% userAssets.forEach(item => { 
+
+            let nftCardParams = {
+                        name: item.item_name, 
+                        image: item.item_image, 
+                        contractAdd: item.item_api_contractAdd, 
+                        tokenId: item.item_api_tokenId
+                    } %>
+
+        <%- include('../partials/user_nft_card', nftCardParams) %>
+
+        <% }) %>
+    </div>
+</div>

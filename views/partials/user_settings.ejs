@@ -1,0 +1,101 @@
+<div style="width: 90vw; height: 95vh; overflow-y: auto;">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-10 col-md-8 col-lg-6">
+
+            <!-- Title -->
+
+            <h3 class="text-center">Account Settings</h3>
+
+            <!-- Form -->
+
+            <form action="/users/account/edit?_method=PATCH" method="POST" class="d-grid gap-2 text-start mt-5">
+                <div class="row">
+                    <div class="col-6"><label for="register-form" class="form-label">First Name:</label>
+                        <input type="text" class="form-control" name="first_name" value="<%= first_name %>">
+                    </div>
+                    <div class="col-6"><label for="register-form" class="form-label"> Last Name:</label>
+                        <input type="text" class="form-control" name="last_name" value="<%= last_name %>">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6"><label for="register-form" class="form-label">Display Name:</label>
+                        <input type="text" class="form-control" name="display_name" value="<%= display_name %>">
+                    </div>
+                    <div class="col-6"><label for="register-form" class="form-label">Password:</label>
+                        <input type="password" class="form-control" name="password">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="register-form" class="form-label">Email Address:</label>
+                        <input type="email" class="form-control" placeholder="john_wick@gmail.com" name="email"
+                            value="<%= email %>">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6"><label for="register-form" class="form-label">Address Line 1:</label>
+                        <input type="text" class="form-control" name="add_1" value="<%= add1 %>">
+                    </div>
+                    <div class="col-6"><label for="register-form" class="form-label">Address Line 2:</label>
+                        <input type="text" class="form-control" name="add_2" value="<%= add2 %>">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="register-form" class="form-label">Postal Code:</label>
+                        <input type="text" class="form-control" name="postal" value="<%= postal %>">
+                    </div>
+                    <div class="col-4">
+                        <label for="register-form" class="form-label">Country:</label>
+                        <input type="text" class="form-control" name="country" value="<%= country %>">
+                    </div>
+                </div>
+                <div class="d-grid gap-2 d-md-block mt-3">
+                    <button type="submit" class="btn btn-outline-dark">Make Changes</button>
+                    <button class="btn btn-outline-danger" id="cancel-btn">Cancel</button>
+                </div>
+            </form>
+            <div class="container text-end p-0 pb-5">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Delete Account
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="background-color: rgba(0, 0, 0, 0.8);">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Delete Account</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-start">
+                                Are you sure you want to delete account?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <form action="/users/account/delete?_method=DELETE" method="POST">
+                                    <button type="submit" class="btn btn-danger">Delete Account</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const cancelBtn = document.querySelector('#cancel-btn')
+    cancelBtn.onclick = () => {
+
+        const dashboardTab = document.querySelector('#dashboard-tab')
+
+        const tab = new bootstrap.Tab(dashboardTab)
+
+        tab.show()
+    }
+</script>

@@ -1,0 +1,61 @@
+<%- include('../partials/header') %>
+
+<!-- Nav Tab -->
+
+<div class="d-flex align-items-start">
+    <div class="nav flex-column nav-pills me-1" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <button class="nav-link active" id="dashboard-tab" data-bs-toggle="pill" data-bs-target="#dashboard"
+            type="button" role="tab" aria-controls="dashboard" aria-selected="true"><i
+                class="fas fa-chart-line"></i></button>
+        <button class="nav-link" id="assets-tab" data-bs-toggle="pill" data-bs-target="#assets" type="button" role="tab"
+            aria-controls="assets" aria-selected="false"><i class="fas fa-folder"></i></button>
+        <button class="nav-link" id="wallet-tab" data-bs-toggle="pill" data-bs-target="#wallet" type="button" role="tab"
+            aria-controls="wallet" aria-selected="false"><i class="fas fa-wallet"></i></button>
+        <button class="nav-link" id="settings-tab" data-bs-toggle="pill" data-bs-target="#settings" type="button"
+            role="tab" aria-controls="wallet" aria-selected="false"><i class="fas fa-cog"></i></button>
+    </div>
+
+    <!-- Nav Content -->
+
+    <div class="tab-content mx-auto" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+
+            <% let dashboardParams = { 
+                first_name: user.first_name, 
+                last_name: user.last_name, 
+                display_name: user.display_name, 
+                email: user.email, 
+                timestamp: user.createdAt, 
+                cash_balance: user.wallet.cash_balance["$numberDecimal"], 
+                bitcoin_balance: user.wallet.bitcoin_balance["$numberDecimal"], 
+                ethereum_balance: user.wallet.ethereum_balance["$numberDecimal"],
+                btcRate: btcRate,
+                ethRate: ethRate
+            } %>
+
+            <%- include('../partials/user_dashboard', dashboardParams) %>
+        </div>
+        <div class="tab-pane fade" id="assets" role="tabpanel" aria-labelledby="assets-tab">
+            <%-include('../partials/user_assets_list', { userAssets: userAssets }) %>
+        </div>
+        <div class="tab-pane fade" id="wallet" role="tabpanel" aria-labelledby="wallet-tab">
+            <%- include('../partials/user_wallet') %>
+        </div>
+        <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+
+            <% let userParams = { 
+                first_name: user.first_name, 
+                last_name: user.last_name, 
+                display_name: user.display_name, 
+                email: user.email, 
+                add1: user.address.add1, 
+                add2: user.address.add2, 
+                postal: user.address.postal, 
+                country: user.address.country } %>
+
+            <%- include('../partials/user_settings', userParams) %>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

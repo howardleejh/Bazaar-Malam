@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+
+<% let nftItemParams = {
+    itemId: nft.id, 
+    tokenId: nft.token_id,
+    contractAdd: nft.asset_contract.address,
+    name: nft.name, 
+    image: nft.image_url, 
+    desc: nft.description, 
+    contractType: nft.asset_contract.asset_contract_type, 
+    dateCreated: nft.asset_contract.created_date, 
+    dollarPrice: nft.collection.payment_tokens[0].usd_price
+} %>
+
+<%- include('../partials/nft_item', nftItemParams) %>
+
+<%- include('../partials/footer') %>
