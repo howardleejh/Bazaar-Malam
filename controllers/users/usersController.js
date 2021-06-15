@@ -263,7 +263,7 @@ async function getCurrencyRate() {
 
     try {
 
-        const response = await axios.get(`https://coinlib.io/api/v1/coin?key=47083687c1eef63c&pref=USD&symbol=BTC, ETH`)
+        const response = await axios.get(`https://coinlib.io/api/v1/coin?key=${process.env.COINLIB_KEY}&pref=USD&symbol=BTC, ETH`)
 
         return response
 

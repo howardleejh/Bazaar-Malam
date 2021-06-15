@@ -3,7 +3,7 @@
 // =====================================
 //           Dependencies
 // =====================================
-
+require('dotenv').config()
 const express = require('express')
 const methodOverride = require('method-override')
 const mongoose = require('mongoose')
@@ -11,7 +11,10 @@ const session = require('express-session')
 
 const guestsController = require('./controllers/guests/guestsController')
 const marketplaceController = require('./controllers/marketplace/marketplaceController')
-const usersController = require('./controllers/users/usersController')
+
+// =====================================
+//              Routers
+// =====================================
 
 const guestsRouter = require('./routers/guests_router')
 const usersRouter = require('./routers/users_router')
@@ -45,6 +48,7 @@ app.use(methodOverride('_method'))
 
 app.use(express.static('public'))
 
+
 // =====================================
 //         Session Middleware
 // =====================================
@@ -52,7 +56,7 @@ app.use(express.static('public'))
 // setting up middleware to support session
 
 app.use(session({
-    secret: "hello panda",
+    secret: `${process.env.SESSION_SECRET}`,
     name: "user_session",
     resave: false,
     saveUninitialized: false,
@@ -97,7 +101,6 @@ app.use('/guests', guestsRouter)
 app.use('/users', usersRouter)
 
 
-
 // =====================================
 //         Initialize MongoDB
 // =====================================
@@ -105,7 +108,7 @@ app.use('/users', usersRouter)
 mongoose.set('useCreateIndex', true)
 
 mongoose.connect(
-    `mongodb://localhost:27017/bazaarmalam?readPreference=primary&appname=MongoDB%20Compass&ssl=false`, {
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false
