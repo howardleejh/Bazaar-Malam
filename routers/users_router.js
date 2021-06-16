@@ -44,5 +44,9 @@ router.post('/marketplace/show/:contractAdd/:tokenId/purchase', authenticatedOnl
 
 router.get('/show/:contractAdd/:tokenId', authenticatedOnly, usersController.updateItem)
 
+// Topup User Wallet
+
+// router.post('/dashboard/topup', authenticatedOnly, usersController.topUpWallet)
+
 
 module.exports = router

@@ -36,7 +36,7 @@
             <%- include('../partials/user_dashboard', dashboardParams) %>
         </div>
         <div class="tab-pane fade" id="assets" role="tabpanel" aria-labelledby="assets-tab">
-            <%-include('../partials/user_assets_list', { userAssets: userAssets }) %>
+            <%-include('../partials/user_assets_list', { userAssets: userTransactions }) %>
         </div>
         <div class="tab-pane fade" id="wallet" role="tabpanel" aria-labelledby="wallet-tab">
             <%- include('../partials/user_wallet') %>

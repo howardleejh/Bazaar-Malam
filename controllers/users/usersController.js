@@ -48,7 +48,7 @@ module.exports = {
 
     dashboard: async (req, res) => {
 
-        let userAssets = await TransactionModel.find({
+        let userTransactions = await TransactionModel.find({
             item_owner: req.session.user._id
         })
 
@@ -59,7 +59,7 @@ module.exports = {
         let ethereum = currencyRate.data.coins[1].price
 
         await res.render('./users/dashboard', {
-            userAssets,
+            userTransactions,
             btcRate: bitcoin,
             ethRate: ethereum
         })
@@ -69,10 +69,12 @@ module.exports = {
 
         const generatedHash = await bcrypt.hash(req.body.password, saltRounds)
 
+        let user = req.session.user
+
         if (req.body.password.length !== 0) {
 
             UserModel.findOneAndUpdate({
-                    email: req.body.email
+                    email: user.email
                 }, {
                     $set: {
                         first_name: req.body.first_name,
@@ -106,8 +108,7 @@ module.exports = {
         } else {
 
             UserModel.findOneAndUpdate({
-
-                    email: req.body.email
+                    email: user.email
                 }, {
                     $set: {
                         first_name: req.body.first_name,
@@ -144,6 +145,7 @@ module.exports = {
             email: req.session.user.email
         })
 
+        req.session.destroy()
         res.redirect('/marketplace')
     },
 
@@ -250,6 +252,36 @@ module.exports = {
             userItem
         })
     },
+
+    // topUpWallet: async (req, res) => {
+
+    //     //     try {
+
+    //     //         await UserModel.findOneAndUpdate({
+    //     //             email: user.email
+    //     //         }, {
+    //     //             $set: {
+    //     //                 wallet: {
+    //     //                     cash_balance: nullCheck(totalVal.cash),
+    //     //                     bitcoin_balance: nullCheck(totalVal.bitcoin),
+    //     //                     ethereum_balance: nullCheck(totalVal.ethereum)
+    //     //                 }
+    //     //             }
+
+    //     //         }, {
+    //     //             new: true
+    //     //         })
+    //     //     } catch (err) {
+
+    //     //         console.log(err)
+    //     //         res.redirect('/marketplace')
+    //     //         return
+    //     //     }
+
+    //     //     req.session.user = user
+
+    //     res.redirect('/users/dashboard')
+    // },
 
     signOut: (req, res) => {
 

@@ -1,4 +1,4 @@
-<div style="width: 95vw; height: 95vh; overflow-y: auto; color: black">
+<div style="width: 95vw; height: 95vh; overflow-y: auto; color: whitesmoke">
     <div class="row row-cols-1 row-cols-md-3 g-3 mb-3 mt-3">
         <div class="col">
             <div class="card h-100">
@@ -14,13 +14,14 @@
                         <div class="card-body">
                             <h3 class="card-title"><%= `${first_name} ${last_name} ` %></h3>
                             <h6 class="text-muted">Display: <strong
-                                    style="color: black; text-transform: capitalize;"><%= display_name %></strong></h6>
-                            <h6 class="text-muted">Email: <strong style="color: black"><%= email %></strong></h6>
+                                    style="color: whitesmoke; text-transform: capitalize;"><%= display_name %></strong>
+                            </h6>
+                            <h6 class="text-muted">Email: <strong style="color: whitesmoke"><%= email %></strong></h6>
                             <% let date = new Date(timestamp).toDateString() 
                                let localDate = date.slice(3)    
                             %>
                             <h6 class="text-muted">Member since: <strong
-                                    style="color: black; text-transform: uppercase;"><%= localDate %></strong></h6>
+                                    style="color: whitesmoke; text-transform: uppercase;"><%= localDate %></strong></h6>
                             <div class="mt-5">
                                 <button class="btn btn-primary" id="edit-profile">Edit Profile</button>
                                 <button class="btn btn-primary" id="add-funds">Top Up Funds</button>
@@ -123,89 +124,48 @@
             <div class="card-header">
                 TRANSACTION HISTORY
             </div>
-            <div style="height: 25vh; overflow-y: scroll;">
+            <div class="table-responsive" style="height: 25vh; overflow-y: scroll;">
                 <table class="table table-dark table-striped table-hover">
-                    <thead class="sticky-top" style="background-color: black; color: wheat;">
+                    <thead class="sticky-top" style="background-color: whitesmoke; color: wheat;">
                         <tr>
                             <th scope="col">DATE</th>
                             <th scope="col">ITEM</th>
-                            <th scope="col">INITIAL VALUE</th>
-                            <th scope="col">PRICE</th>
+                            <th scope="col">VALUE</th>
                             <th scope="col">BUY/SELL</th>
-                            <th scope="col">MODE OF PAYMENT</th>
+                            <th scope="col"><i class="fas fa-dollar-sign fs-5"></i></th>
+                            <th scope="col"><i class="fab fa-bitcoin fs-5"></i></th>
+                            <th scope="col"><i class="fab fa-ethereum fs-5"></i></th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
+                        <% userTransactions.forEach(item => {
+
+                            let date = new Date(item.createdAt).toDateString() 
+                               let localDate = date.slice(3)
+
+                            let itemBoughtVal = {
+                                cash: nullCheck(item.item_value.cash),
+                                bitcoin: nullCheck(item.item_value.bitcoin),
+                                ethereum: nullCheck(item.item_value.ethereum),
+                            }
+
+                            let itemTotalVal = parseFloat(itemBoughtVal.cash) + parseFloat(itemBoughtVal.bitcoin * btcRate) + parseFloat(itemBoughtVal.ethereum * ethRate)
+                            
+                            %>
 
                         <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>@fat</td>
-                            <td>@fat</td>
+                            <td><%= localDate %></td>
+                            <td><%= item.item_name %></td>
+                            <td><%= twoDecimal(itemTotalVal) %></td>
+                            <td><%= item.item_status %></td>
+                            <td><%= itemBoughtVal.cash %></td>
+                            <td><%= itemBoughtVal.bitcoin %></td>
+                            <td><%= itemBoughtVal.ethereum %></td>
                         </tr>
 
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                        </tr>
+                        <% }) %>
 
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                            <td>@twitter</td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -282,10 +242,10 @@
                                     <canvas id='purchase-stats'></canvas>
                                 </div>
                                 <div class="col-5">
-                                    <h6 class="text-muted">PURCHASED ITEMS</h6>
+                                    <h6 class="text-muted">ITEMS OWNED</h6>
                                     <h4>121</h4>
                                     <h6 class="text-muted">BOUGHT:</h6>
-                                    <h5>52</h5>
+                                    <h5><%= userTransactions.length %></h5>
                                     <h6 class="text-muted">SOLD:</h6>
                                     <h5>23</h5>
                                     <h6 class="text-muted">PENDING:</h6>
@@ -337,7 +297,7 @@
             datasets: [{
                 data: dataVal,
                 backgroundColor: [
-                    'rgba(104, 158, 128, 0.7)',
+                    'rgba(104, 200, 128, 0.7)',
                     'rgba(234, 151, 61, 0.7)',
                     'rgba(62, 65, 72, 0.7)'
                 ],
@@ -374,15 +334,15 @@
                     label: 'Transactions',
                     data: [10, 20, 12],
                     borderColor: 'red',
-                    backgroundColor: 'rgba(255,0,0, 0.35)',
+                    backgroundColor: 'rgba(255,0,0, 0.7)',
                     stack: 'combined',
                     type: 'bar'
                 },
                 {
                     label: 'Asset Value',
                     data: [10, 12, 20],
-                    borderColor: 'blue',
-                    backgroundColor: 'blue',
+                    borderColor: 'white',
+                    backgroundColor: 'white',
                     stack: 'combined',
                 }
             ]
@@ -395,7 +355,7 @@
                     position: 'right',
                     labels: {
                         font: 100,
-                        color: 'rgb(0,0,0)',
+                        color: 'white',
                         padding: 5
                     }
                 }
@@ -485,11 +445,11 @@
             datasets: [{
                 data: [1, 75, 32, 20],
                 backgroundColor: [
-                    'rgb(75, 192, 192)',
-                    'rgb(255, 205, 86)',
-                    'rgb(201, 203, 207)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 99, 132)'
+                    'rgb(75, 192, 192, 0.7)',
+                    'rgb(255, 205, 86, 0.7)',
+                    'rgb(201, 203, 207, 0.7)',
+                    'rgb(54, 162, 235, 0.7)',
+                    'rgb(255, 99, 132, 0.7)'
                 ],
                 borderColor: [
                     'rgba(255, 255, 255, 1)'
@@ -545,4 +505,19 @@
     return valFloat.toLocaleString('en-US', {maximumFractionDigits:2})
 
 }
+
+function nullCheck(val) {
+
+if (isNaN(val)) {
+
+   let message = "0"
+
+   return message
+
+} else {
+
+    return val
+}
+
+} 
 %>

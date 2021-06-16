@@ -1,18 +1,84 @@
 <div class="row d-flex d-grid gap-3 justify-content-between mt-3">
 
-    <div class="container-fluid col-6 mt-3">
-
-        <div class="col-4">
-            <h1>test</h1>
+    <div class="row d-flex d-grid gap-3 mt-3">
+        <div class="col-5 mt-3">
+            <h4 class="text-muted">Bitcoin Rates: <strong style="color: rgb(206, 79, 79);"> USD
+                    <%= twoDecimal(btcRate) %></strong>
+            </h4>
+        </div>
+        <div class="col-5 mt-3">
+            <h4 class="text-muted">Ethereum Rates: <strong style="color: rgb(206, 79, 79);"> USD
+                    <%= twoDecimal(ethRate) %></strong>
+            </h4>
         </div>
 
-        <div class="col-4">
-            <h1>test</h1>
-        </div>
+        <small class="text-muted">Last updated 3 mins ago</small>
 
-        <div class="col-4">
-            <h1>test</h1>
+        <div class="container">
+            <ul class="nav nav-pills mb-3" id="bid" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="bids-cash-tab" data-bs-toggle="pill" data-bs-target="#bids-cash"
+                        type="button" role="tab" aria-controls="bids-cash" aria-selected="true"><i
+                            class="fas fa-dollar-sign fs-5"></i></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="bids-bitcoin-tab" data-bs-toggle="pill" data-bs-target="#bids-bitcoin"
+                        type="button" role="tab" aria-controls="bids-bitcoin" aria-selected="false"><i
+                            class="fab fa-bitcoin fs-5"></i></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="bids-ethereum-tab" data-bs-toggle="pill"
+                        data-bs-target="#bids-ethereum" type="button" role="tab" aria-controls="bids-ethereum"
+                        aria-selected="false"><i class="fab fa-ethereum fs-5"></i></button>
+                </li>
+            </ul>
+            <div class="tab-content" id="bid-tabs-Content">
+                <div class="tab-pane fade show active" id="bids-cash" role="tabpanel" aria-labelledby="bids-cash-tab">
+                    <form action="/users/dashboard/topup" method="POST">
+                        <div class="row align-items-center">
+                            <div class="input-group mb-3">
+                                <input type="number" step="0.01" min="0" class="form-control" placeholder="USD $1000.00"
+                                    name="topupCash">
+                                <button class="btn btn-outline-light" type="submit">Top Up</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="bids-bitcoin" role="tabpanel" aria-labelledby="bids-bitcoin-tab">
+                    <form action="/users/dashboard/topup" method="POST">
+                        <div class="row align-items-center">
+                            <div class="input-group mb-3">
+                                <input type="number" step="0.01" min="0" class="form-control" placeholder="Bitcoin"
+                                    name="topupBtc">
+                                <button class="btn btn-outline-light" type="submit">Top Up</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="bids-ethereum" role="tabpanel" aria-labelledby="bids-ethereum-tab">
+                    <form action="/users/dashboard/topup" method="POST">
+                        <div class="row align-items-center">
+                            <div class="input-group mb-3">
+                                <input type="number" step="0.01" min="0" class="form-control" placeholder="Ethereum"
+                                    name="topupEth">
+                                <button class="btn btn-outline-light" type="submit">Top Up</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
     </div>
 </div>
+
+<% 
+
+    function twoDecimal(val) {
+
+    let valFloat = parseFloat(val)
+
+    return valFloat.toLocaleString('en-US', {maximumFractionDigits:2})
+
+}
+
+%>

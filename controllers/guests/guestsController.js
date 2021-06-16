@@ -83,7 +83,7 @@ module.exports = {
             return
         }
 
-        res.redirect('/users/marketplace')
+        res.redirect('/marketplace')
     }
 }
 
