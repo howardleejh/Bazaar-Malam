@@ -48,8 +48,10 @@ module.exports = {
 
     dashboard: async (req, res) => {
 
+        let user = req.session.user
+
         let userTransactions = await TransactionModel.find({
-            item_owner: req.session.user._id
+            item_owner: user._id
         })
 
         let currencyRate = await getCurrencyRate()
@@ -57,6 +59,8 @@ module.exports = {
         let bitcoin = currencyRate.data.coins[0].price
 
         let ethereum = currencyRate.data.coins[1].price
+
+        req.session.user = user
 
         await res.render('./users/dashboard', {
             userTransactions,
@@ -141,7 +145,7 @@ module.exports = {
 
     deleteAccount: async (req, res) => {
 
-        let user = await UserModel.deleteOne({
+        await UserModel.deleteOne({
             email: req.session.user.email
         })
 

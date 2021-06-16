@@ -39,9 +39,51 @@
         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
           <%- include('../partials/user_wallet_amount') %>
         </div>
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...</div>
-        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+          <form action="" method="" class="d-grid gap-2 text-start mt-5">
+            <div class="row">
+              <div class="col-6"><label for="register-form" class="form-label">Address Line 1:</label>
+                <input type="text" class="form-control" name="add_1" value="<%= add1 %>">
+              </div>
+              <div class="col-6"><label for="register-form" class="form-label">Address Line 2:</label>
+                <input type="text" class="form-control" name="add_2" value="<%= add2 %>">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <label for="register-form" class="form-label">Postal Code:</label>
+                <input type="text" class="form-control" name="postal" value="<%= postal %>">
+              </div>
+              <div class="col-4">
+                <label for="register-form" class="form-label">Country:</label>
+                <input type="text" class="form-control" name="country" value="<%= country %>">
+              </div>
+            </div>
+            <div class="d-grid gap-2 d-md-block mt-3">
+              <button type="submit" class="btn btn-outline-light">Next</button>
+          </form>
+          <button class="btn btn-outline-danger" href="" id="back2dashbtn">Cancel</button>
+        </div>
       </div>
+      <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
     </div>
   </div>
 </div>
+</div>
+
+
+
+<script>
+  // Accessing the Dashboard tab on Bootstrap
+
+  const dashbtn = document.querySelector('#back2dashbtn')
+
+  dashbtn.onclick = () => {
+
+    const dashboardBtn = document.querySelector('#dashboard-tab')
+
+    const tab = new bootstrap.Tab(dashboardBtn)
+
+    tab.show()
+  }
+</script>
