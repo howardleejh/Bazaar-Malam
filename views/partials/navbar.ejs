@@ -8,44 +8,48 @@
         <% if ( user ) { %>
 
 
-        <div class="btn-group">
+        <div class="btn-group gap-3">
 
             <a class="btn btn-link" href="/users/dashboard" style="text-decoration: none;"><i
                     class="fas fa-user-circle"></i>
                 <%= `${user.display_name}` %> </a>
 
-            <button class="btn btn-link" role="button" id="nav-wallet" style="text-decoration: none;">Wallet</button>
-            <button type="button" class="btn btn-link dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
-                aria-expanded="false">
-            </button>
-            <ul class="dropdown-menu">
-                <li class="dropdown-item">
+            <div>
+                <button class="btn btn-link" role="button" id="nav-wallet"
+                    style="text-decoration: none;">Wallet</button>
+                <button type="button" class="btn btn-link dropdown-toggle dropdown-toggle-split"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                </button>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item">
 
-                    <h6 class="text-muted">
-                        <i class="fas fa-dollar-sign fs-5"></i> USD
-                    </h6>
+                        <h6 class="text-muted">
+                            <i class="fas fa-dollar-sign fs-5"></i> USD
+                        </h6>
 
-                    <h5>
-                        $<%= twoDecimal(user.wallet.cash_balance["$numberDecimal"]) %>
-                    </h5>
+                        <h5>
+                            $<%= twoDecimal(user.wallet.cash_balance["$numberDecimal"]) %>
+                        </h5>
 
-                </li>
+                    </li>
 
-                <li class="dropdown-item">
+                    <li class="dropdown-item">
 
-                    <h6 class="text-muted"><i class="fab fa-bitcoin fs-5"></i> BTC
-                        <h5><%= twoDecimal(user.wallet.bitcoin_balance["$numberDecimal"]) %></h5>
-                    </h6>
+                        <h6 class="text-muted"><i class="fab fa-bitcoin fs-5"></i> BTC
+                            <h5><%= twoDecimal(user.wallet.bitcoin_balance["$numberDecimal"]) %></h5>
+                        </h6>
 
-                </li>
+                    </li>
 
-                <li class="dropdown-item">
+                    <li class="dropdown-item">
 
-                    <h6 class="text-muted"><i class="fab fa-ethereum fs-5"></i> ETH
-                        <h5><%= twoDecimal(user.wallet.ethereum_balance["$numberDecimal"]) %></h5>
-                    </h6>
-                </li>
-            </ul>
+                        <h6 class="text-muted"><i class="fab fa-ethereum fs-5"></i> ETH
+                            <h5><%= twoDecimal(user.wallet.ethereum_balance["$numberDecimal"]) %></h5>
+                        </h6>
+                    </li>
+                </ul>
+
+            </div>
 
             <a class="btn btn-link" href="/marketplace" style="text-decoration: none;"><i class="fas fa-store"></i>
                 Marketplace</a>

@@ -31,13 +31,13 @@ module.exports = {
         }
 
         if (!user) {
-            res.redirect('/signup')
+            res.redirect('/guests/signup')
             return
         }
 
         const isValidPassword = await bcrypt.compare(req.body.user_password, user.hash)
         if (!isValidPassword) {
-            res.redirect('/signup')
+            res.redirect('/guests/signup')
             return
         }
 
@@ -48,12 +48,8 @@ module.exports = {
 
     dashboard: async (req, res) => {
 
-        let user = await UserModel.findOne({
-            email: req.session.user.email
-        })
-
         let userAssets = await TransactionModel.find({
-            item_owner: user._id
+            item_owner: req.session.user._id
         })
 
         let currencyRate = await getCurrencyRate()
@@ -75,7 +71,7 @@ module.exports = {
 
         if (req.body.password.length !== 0) {
 
-            await UserModel.findOneAndUpdate({
+            UserModel.findOneAndUpdate({
                     email: req.body.email
                 }, {
                     $set: {
@@ -95,7 +91,7 @@ module.exports = {
                 }, {
                     new: true
                 })
-                .then(response => {
+                .then(user => {
 
                     req.session.user = user
 
@@ -109,7 +105,7 @@ module.exports = {
 
         } else {
 
-            await UserModel.findOneAndUpdate({
+            UserModel.findOneAndUpdate({
 
                     email: req.body.email
                 }, {
@@ -128,7 +124,9 @@ module.exports = {
                 }, {
                     new: true
                 })
-                .then(response => {
+                .then(user => {
+
+                    req.session.user = user
 
                     res.redirect('/users/dashboard')
 
@@ -206,13 +204,13 @@ module.exports = {
             } catch (err) {
 
                 console.log(err)
-                res.redirect('/signup')
+                res.redirect('/guests/signup')
                 return
             }
 
             try {
 
-                await UserModel.findOneAndUpdate({
+                user = await UserModel.findOneAndUpdate({
                     email: user.email
                 }, {
                     $set: {
@@ -232,6 +230,8 @@ module.exports = {
                 res.redirect('/marketplace')
                 return
             }
+
+            req.session.user = user
 
             res.redirect(`/marketplace/show/${req.params.contractAdd}/${req.params.tokenId}`)
         }

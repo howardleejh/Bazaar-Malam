@@ -45,7 +45,7 @@ module.exports = {
             })
         } catch (err) {
             console.log(err)
-            res.redirect('/signup')
+            res.redirect('/guests/signup')
             return
         }
         if (user) {
@@ -59,7 +59,7 @@ module.exports = {
             await UserModel.create({
                 first_name: capitalize(req.body.first_name),
                 last_name: capitalize(req.body.last_name),
-                display_name: req.body.first_name,
+                display_name: capitalize(req.body.first_name),
                 email: req.body.email,
                 hash: generatedHash,
                 address: {
@@ -79,11 +79,11 @@ module.exports = {
             })
         } catch (err) {
             console.log(err)
-            res.redirect('/signup')
+            res.redirect('/guests/signup')
             return
         }
 
-        res.redirect('/marketplace')
+        res.redirect('/users/marketplace')
     }
 }
 

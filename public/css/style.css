@@ -12,7 +12,7 @@ a {
 
 body {
     overflow: hidden;
-    background-image: url('../images/main-bg.jpg');
+    background-image: url('../images/griddd.png');
     background-repeat: no-repeat;
     background-size: cover;
     color: whitesmoke;
@@ -23,8 +23,8 @@ body {
 }
 
 .btn:hover {
-
-    color: cornsilk;
+    background: black;
+    color: wheat;
 }
 
 .btn-primary {
@@ -35,7 +35,8 @@ body {
 
 .btn-primary:hover {
 
-    background-color: dimgray;
+    background-color: rgb(199, 199, 199);
+    color: rgb(22, 22, 22);
 }
 
 .btn-transparent {
@@ -43,11 +44,28 @@ body {
     color: white;
 }
 
+.card {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: whitesmoke;
+    border-radius: 15px 50px;
+}
+
+.card-header {
+
+    color: blanchedalmond;
+    border-radius: 25px;
+}
+
 .carousel-caption {
 
     transform: translateY(35vh);
     bottom: initial;
     top: 5vh;
+}
+
+#dashboard .card-header {
+
+    background: black;
 }
 
 .img-filter {
