@@ -2,8 +2,8 @@
 
 <h2>Description</h2>
 
-This is yet another first for me, with the establishment of a digital Marketplace for NFTs shopping. I've included 2 main cryptocurrencies as well that can be used
-to purchase NFTs.
+This is yet another first for me, with the establishment of a mock digital Marketplace for NFTs shopping. I've included 2 main cryptocurrencies that can be used
+to purchase NFTs (Unofficially).
 
 <br />
 
@@ -25,6 +25,11 @@ The project is currently live on Heroku: https://bazaar-malam.herokuapp.com/
 
 <br />
 
+![alt text](https://github.com/howardleejh/Bazaar-Malam/blob/master/public/images/SC1.png)
+<br />
+![alt text](https://github.com/howardleejh/Bazaar-Malam/blob/master/public/images/SC2.png)
+
+
 Some Dependecies that I've used in this project:
 
 - Axios: used to access API callbacks
@@ -35,6 +40,9 @@ Some Dependecies that I've used in this project:
 - Express Session: allows users to store data in sessions
 - Method Override
 - Mongoose: Object Data Modeling (ODM) library for NodeJS and MongoDB
+- CoinLib API: to access Cryptocurrency exchange rates
+- OpenSEA API: to access actual NFTs
+- ChartJS: used to create charts in the Dashboard
 
 <br />
 
