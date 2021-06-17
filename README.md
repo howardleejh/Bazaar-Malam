@@ -30,10 +30,11 @@ The project is currently live on Heroku: https://bazaar-malam.herokuapp.com/
 ![alt text](https://github.com/howardleejh/Bazaar-Malam/blob/master/public/images/SC2.png)
 
 
-Some Dependecies that I've used in this project:
+
+Some Dependencies that I've used in this project:
 
 - Axios: used to access API callbacks
-- Bcrpyt: Hash Generation
+- Bcrypt: Hash Generation
 - DotEnv: a local environment that stores sensative data
 - EJS : Javascript templating
 - Express: NodeJS web application framework
@@ -43,8 +44,6 @@ Some Dependecies that I've used in this project:
 - CoinLib API: to access Cryptocurrency exchange rates
 - OpenSEA API: to access actual NFTs
 - ChartJS: used to create charts in the Dashboard
-
-<br />
 
 <h3>Features</h3>
 
@@ -58,8 +57,6 @@ Some Dependecies that I've used in this project:
 - User Assets
 - NFT Bidding
 - NFT BUY/SELL
-
-<br />
 
 <h4>Some features to be implemented or improved upon: </h4>
 
