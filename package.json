@@ -7,6 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "keywords": [
+    "crpyto",
+    "nfts",
+    "digital market"
+  ],
   "author": "Howard Lee",
   "license": "ISC",
   "dependencies": {
@@ -18,5 +23,8 @@
     "express-session": "^1.17.2",
     "method-override": "^3.0.0",
     "mongoose": "^5.12.13"
+  },
+  "engines": {
+    "node": "15.11.0"
   }
 }
