@@ -43,7 +43,7 @@ module.exports = {
 
         req.session.user = user
 
-        res.redirect('/marketplace')
+        res.redirect('/users/dashboard')
     },
 
     dashboard: async (req, res) => {
