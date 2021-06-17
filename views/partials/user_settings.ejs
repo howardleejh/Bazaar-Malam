@@ -1,4 +1,4 @@
-<div style="width: 90vw; height: 95vh; overflow-y: auto;">
+<div style="width: 95vw; height: 95vh; overflow-y: auto;">
     <div class="row h-100 justify-content-center align-items-center">
         <div class="col-10 col-md-8 col-lg-6 p-5" style="background-color: rgba(0, 0, 0, 0.7);">
 
@@ -55,7 +55,7 @@
                     <button class="btn btn-outline-danger" id="cancel-btn">Cancel</button>
                 </div>
             </form>
-            <div class="container text-end p-0 pb-5">
+            <div class="container text-end p-0 pb-3">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     Delete Account
@@ -74,7 +74,7 @@
                             <div class="modal-body text-start">
                                 Are you sure you want to delete account?
                             </div>
-                            <div class="modal-footer">
+                            <div class="modal-footer pb-3">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <form action="/users/account/delete?_method=DELETE" method="POST">
                                     <button type="submit" class="btn btn-danger">Delete Account</button>
