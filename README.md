@@ -20,7 +20,7 @@ The project is currently live on Heroku: https://bazaar-malam.herokuapp.com/
 | /marketplace/show/:contractAdd/:tokenId      | GET       | show       
 |/users/signin      |GET        | user sign in 
 |/users/dashboard      |POST        | user signed in   
-| /users/account/edit      | PATCH/PUT | update user info    
+| /users/account/edit      | PATCH | update user info    
 | /users/account/delete      | DELETE    | destroy user account
 
 <br />
@@ -67,6 +67,7 @@ Some Dependecies that I've used in this project:
 - [ ] NFT Bidding<br />
 - [ ] Express Flash Messages<br />
 - [ ] Simple Centralized Blockchain<br />
+- [ ] Overall Code clean up
 
 
 
