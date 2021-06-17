@@ -33,7 +33,7 @@ The project is currently live on Heroku: https://bazaar-malam.herokuapp.com/
 Some Dependecies that I've used in this project:
 
 - Axios: used to access API callbacks
-- Bcrpyt: used for encryption of data
+- Bcrpyt: Hash Generation
 - DotEnv: a local environment that stores sensative data
 - EJS : Javascript templating
 - Express: NodeJS web application framework
