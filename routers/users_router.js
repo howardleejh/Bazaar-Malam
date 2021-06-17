@@ -46,7 +46,7 @@ router.get('/show/:contractAdd/:tokenId', authenticatedOnly, usersController.upd
 
 // Topup User Wallet
 
-// router.post('/dashboard/topup', authenticatedOnly, usersController.topUpWallet)
+router.post('/dashboard/topup', authenticatedOnly, usersController.topUpWallet)
 
 
 module.exports = router

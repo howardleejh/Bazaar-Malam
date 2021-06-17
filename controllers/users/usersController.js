@@ -257,35 +257,53 @@ module.exports = {
         })
     },
 
-    // topUpWallet: async (req, res) => {
+    topUpWallet: async (req, res) => {
 
-    //     //     try {
+        let user = req.session.user
 
-    //     //         await UserModel.findOneAndUpdate({
-    //     //             email: user.email
-    //     //         }, {
-    //     //             $set: {
-    //     //                 wallet: {
-    //     //                     cash_balance: nullCheck(totalVal.cash),
-    //     //                     bitcoin_balance: nullCheck(totalVal.bitcoin),
-    //     //                     ethereum_balance: nullCheck(totalVal.ethereum)
-    //     //                 }
-    //     //             }
+        await UserModel.findOne({
+            email: user.email
+        })
 
-    //     //         }, {
-    //     //             new: true
-    //     //         })
-    //     //     } catch (err) {
+        let topUpVal = {
+            cash: parseFloat(req.body.topupCash),
+            bitcoin: parseFloat(req.body.topupBtc),
+            ethereum: parseFloat(req.body.topupEth)
+        }
 
-    //     //         console.log(err)
-    //     //         res.redirect('/marketplace')
-    //     //         return
-    //     //     }
+        let topup = {
+            cash: parseFloat(user.wallet.cash_balance["$numberDecimal"]) + nullCheck(topUpVal.cash),
+            bitcoin: parseFloat(user.wallet.bitcoin_balance["$numberDecimal"]) + nullCheck(topUpVal.bitcoin),
+            ethereum: parseFloat(user.wallet.ethereum_balance["$numberDecimal"]) + nullCheck(topUpVal.ethereum)
+        }
 
-    //     //     req.session.user = user
+        try {
 
-    //     res.redirect('/users/dashboard')
-    // },
+            user = await UserModel.findOneAndUpdate({
+                email: user.email
+            }, {
+                $set: {
+                    wallet: {
+                        cash_balance: nullCheck(topup.cash),
+                        bitcoin_balance: nullCheck(topup.bitcoin),
+                        ethereum_balance: nullCheck(topup.ethereum)
+                    }
+                }
+
+            }, {
+                new: true
+            })
+        } catch (err) {
+
+            console.log(err)
+            res.redirect('/marketplace')
+            return
+        }
+
+        req.session.user = user
+
+        res.redirect('/users/dashboard')
+    },
 
     signOut: (req, res) => {
 
