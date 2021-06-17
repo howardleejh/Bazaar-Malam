@@ -2,7 +2,12 @@
 
 <div class="container" style="height: 95vh; overflow-y: auto;">
 
-    <div class="row row-cols-1 row-cols-md-4 g-4 mt-3 pb-5">
+    <h3 class="text-center text-uppercase mb-3"
+        style="font-size: 3vw; font-family: 'Poiret One', cursive; text-justify: inter-word">
+        Welcome to Gallery
+    </h3>
+
+    <div class="row row-cols-1 row-cols-md-4 g-4 pb-5">
 
         <% nfts.forEach(item => { %>
 
@@ -22,6 +27,7 @@
         <% }) %>
 
     </div>
+    <%- include('../partials/body_footer') %>
 </div>
 
 <%- include('../partials/footer') %>

@@ -1,4 +1,5 @@
 <div style="width: 95vw; height: 95vh; overflow-y: auto; color: whitesmoke">
+
     <div class="row row-cols-1 row-cols-md-3 g-3 mb-3 mt-3">
         <div class="col">
             <div class="card h-100">
@@ -279,6 +280,30 @@
     </div>
 </div>
 
+<% function twoDecimal(val) {
+
+    let valFloat = parseFloat(val)
+
+    return valFloat.toLocaleString('en-US', {maximumFractionDigits:2})
+
+}
+
+function nullCheck(val) {
+
+if (isNaN(val)) {
+
+   let message = "0"
+
+   return message
+
+} else {
+
+    return val
+}
+
+} 
+%>
+
 <script>
     // Currency Pie Chart
 
@@ -497,27 +522,3 @@
         tab.show()
     }
 </script>
-
-<% function twoDecimal(val) {
-
-    let valFloat = parseFloat(val)
-
-    return valFloat.toLocaleString('en-US', {maximumFractionDigits:2})
-
-}
-
-function nullCheck(val) {
-
-if (isNaN(val)) {
-
-   let message = "0"
-
-   return message
-
-} else {
-
-    return val
-}
-
-} 
-%>
